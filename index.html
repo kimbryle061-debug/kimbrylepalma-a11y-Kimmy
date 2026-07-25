@@ -11,13 +11,20 @@
 
     <header class="top-navbar">
         <a href="index.html" class="logo">OUR WEBSITE</a>
-        <ul class="top-nav-links">
-            <li><a href="index.html" style="color: #149ddd; font-weight: bold;">Portfolio-1</a></li>
-            <li><a href="arianne.html">Portfolio-2</a></li>
-        </ul>
+        <div style="display: flex; align-items: center; gap: 30px;">
+            <ul class="top-nav-links">
+                <li><a href="index.html" style="color: #149ddd; font-weight: bold;">Portfolio-1</a></li>
+                <li><a href="arianne.html">Portfolio-2</a></li>
+            </ul>
+            <button class="hamburger-menu" id="hamburgerMenu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
     </header>
 
-    <div class="sidebar">
+    <div class="sidebar" id="sidebar">
         <img src="1751348694577.jpg" alt="Profile" class="profile-img" id="profileTrigger">
         <h1 class="profile-name">Kim Bryle P. Tabiliran</h1>
         
@@ -170,7 +177,11 @@
         const profileTrigger = document.getElementById("profileTrigger");
         const fullScreenTarget = document.getElementById("fullScreenTarget");
         const closeModal = document.getElementById("closeModal");
+        const hamburgerMenu = document.getElementById("hamburgerMenu");
+        const sidebar = document.getElementById("sidebar");
+        const navLinks = document.querySelectorAll(".nav-menu a");
 
+        // Profile Modal
         profileTrigger.onclick = function() {
             profileModal.style.display = "flex";
             fullScreenTarget.src = this.src; 
@@ -185,9 +196,25 @@
                 profileModal.style.display = "none";
             }
         }
+
+        // Hamburger Menu
+        hamburgerMenu.addEventListener("click", function() {
+            hamburgerMenu.classList.toggle("active");
+            sidebar.classList.toggle("active");
+        });
+
+        // Close menu when clicking on a nav link
+        navLinks.forEach(link => {
+            link.addEventListener("click", function() {
+                if (window.innerWidth <= 768) {
+                    hamburgerMenu.classList.remove("active");
+                    sidebar.classList.remove("active");
+                }
+            });
+        });
         
+        // Scroll Active Nav
         const sections = document.querySelectorAll("section");
-        const navLinks = document.querySelectorAll(".nav-menu a");
 
         window.addEventListener("scroll", () => {
             let current = "";

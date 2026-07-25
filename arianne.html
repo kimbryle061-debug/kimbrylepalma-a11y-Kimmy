@@ -11,13 +11,20 @@
 
     <header class="top-navbar">
         <a href="index.html" class="logo">Our Website</a>
-        <ul class="top-nav-links">
-            <li><a href="index.html">Portfolio-1</a></li>
-            <li><a href="arianne.html" style="color: white; font-weight: bold;">Portfolio-2</a></li>
-        </ul>
+        <div style="display: flex; align-items: center; gap: 30px;">
+            <ul class="top-nav-links">
+                <li><a href="index.html">Portfolio-1</a></li>
+                <li><a href="arianne.html" style="color: white; font-weight: bold;">Portfolio-2</a></li>
+            </ul>
+            <button class="hamburger-menu" id="hamburgerMenu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
     </header>
 
-    <div class="sidebar">
+    <div class="sidebar" id="sidebar">
         <img src="file_00000000356471fd81f303a7f7d277a2.png" alt="Profile" class="profile-img" id="profileTrigger">
         <h1 class="profile-name">Arianne P. Tagudando</h1>
         
@@ -98,7 +105,7 @@
                     </div>
                 </a>
                 
-                <a href="https://github.com/Tagudando" target="_blank" class="project-card" role="article" aria-label="GitHub and Version Control - Developing and managing software projects using GitHub for version control and team collab[...]
+                <a href="https://github.com/Tagudando" target="_blank" class="project-card" role="article" aria-label="GitHub and Version Control - Developing and managing software projects using GitHub for version control and team collab[...]">
                     <div class="project-img-placeholder">
                         <img src="Github.jpg" alt="GitHub project">
                     </div>
@@ -166,7 +173,11 @@
         const profileTrigger = document.getElementById("profileTrigger");
         const fullScreenTarget = document.getElementById("fullScreenTarget");
         const closeModal = document.getElementById("closeModal");
+        const hamburgerMenu = document.getElementById("hamburgerMenu");
+        const sidebar = document.getElementById("sidebar");
+        const navLinks = document.querySelectorAll(".nav-menu a");
 
+        // Profile Modal
         profileTrigger.onclick = function() {
             profileModal.style.display = "flex";
             fullScreenTarget.src = this.src; 
@@ -181,9 +192,25 @@
                 profileModal.style.display = "none";
             }
         }
+
+        // Hamburger Menu
+        hamburgerMenu.addEventListener("click", function() {
+            hamburgerMenu.classList.toggle("active");
+            sidebar.classList.toggle("active");
+        });
+
+        // Close menu when clicking on a nav link
+        navLinks.forEach(link => {
+            link.addEventListener("click", function() {
+                if (window.innerWidth <= 768) {
+                    hamburgerMenu.classList.remove("active");
+                    sidebar.classList.remove("active");
+                }
+            });
+        });
         
+        // Scroll Active Nav
         const sections = document.querySelectorAll("section");
-        const navLinks = document.querySelectorAll(".nav-menu a");
 
         window.addEventListener("scroll", () => {
             let current = "";
